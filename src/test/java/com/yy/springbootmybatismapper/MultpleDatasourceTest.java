@@ -28,6 +28,7 @@ public class MultpleDatasourceTest {
     @Test
     @DynamicSwitchDataSource(dataSource = "datasource02")
     public void test02() {
+        HandlerDataSource.putDataSource("datasource01");
         Country country = countryDao.selectByPrimaryKey(1);
         System.out.println("country:"+country);
     }
