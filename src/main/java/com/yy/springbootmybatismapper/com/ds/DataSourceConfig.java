@@ -75,19 +75,10 @@ public class DataSourceConfig {
         SqlSessionFactoryBean fb = new SqlSessionFactoryBean();
         // 指定数据源(这个必须有，否则报错)
         fb.setDataSource(this.dataSource(dataSource01, dataSource02));
-        // 下边两句仅仅用于*.xml文件，如果整个持久层操作不需要使用到xml文件的话（只用注解就可以搞定），则不加
-        fb.setTypeAliasesPackage(env.getProperty("mybatis.typeAliasesPackage"));
-        fb.setMapperLocations(new PathMatchingResourcePatternResolver().getResources(env.getProperty("mybatis.mapperLocations")));
         return fb.getObject();
     }
 
-    /**
-     * 配置事务管理器(需要使用事务就配置，不需要事务则无需配置)
-     */
-    @Bean
-    public DataSourceTransactionManager transactionManager(MultipleDataSourceToChoose dataSource) throws Exception {
-        return new DataSourceTransactionManager(dataSource);
-    }
+
 
 
 }
