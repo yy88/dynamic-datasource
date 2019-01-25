@@ -58,7 +58,7 @@ public class DataSourceConfig {
         map.put("datasource01", dataSource01);
         map.put("datasource02", dataSource02);
 
-        MultipleDataSourceToChoose multipleDataSourceToChoose = new MultipleDataSourceToChoose();
+        RoutingDataSource multipleDataSourceToChoose = new RoutingDataSource();
         multipleDataSourceToChoose.setTargetDataSources(map);
         multipleDataSourceToChoose.setDefaultTargetDataSource(dataSource01);
         return multipleDataSourceToChoose;
