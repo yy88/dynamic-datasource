@@ -1,7 +1,9 @@
 package com.yy.springbootmybatismapper;
 
 import com.yy.springbootmybatismapper.com.dao.CountryDao;
+import com.yy.springbootmybatismapper.com.ds.DynamicSwitchDataSource;
 import com.yy.springbootmybatismapper.com.ds.HandlerDataSource;
+import com.yy.springbootmybatismapper.com.ds.service.DataSourceService;
 import com.yy.springbootmybatismapper.com.entity.Country;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,6 +19,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class MultpleDatasourceTest {
     @Autowired
     private CountryDao countryDao;
+    @Autowired
+    private DataSourceService dataSourceService;
     @Test
     public void test01() {
         HandlerDataSource.putDataSource("datasource01");
@@ -25,9 +29,21 @@ public class MultpleDatasourceTest {
     }
 
     @Test
+    @DynamicSwitchDataSource(dataSource = "datasource02")
     public void test02() {
-        HandlerDataSource.putDataSource("datasource02");
         Country country = countryDao.selectByPrimaryKey(1);
         System.out.println("country:"+country);
+    }
+
+    @Test
+    public void testDatasource01() {
+        Country country = dataSourceService.selectByKey_datasource01(1L);
+        System.out.println(country);
+    }
+
+    @Test
+    public void testDatasource02() {
+        Country country = dataSourceService.selectByKey_datasource02(1L);
+        System.out.println(country);
     }
 }
