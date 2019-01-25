@@ -19,6 +19,10 @@ import java.util.Map;
 
 /**
  * @author yuanyuan.jing 2019/1/24 17:37
+ * springboot集成mybatis的基本入口
+ * 1）创建数据源(如果采用的是默认的tomcat-jdbc数据源，则不需要)
+ * 2）创建SqlSessionFactory
+ * 3）配置事务管理器，除非需要使用事务，否则不用配置
  */
 @Configuration
 public class DataSourceConfig {
@@ -26,7 +30,7 @@ public class DataSourceConfig {
     private Environment env;
     @Bean
     @ConfigurationProperties(prefix = "spring.datasource01")
-    public DataSource dataSource_0(){
+    public DataSource dataSource01(){
         return DataSourceBuilder.create()
                 .type(DruidDataSource.class)
                 .build();
@@ -34,32 +38,39 @@ public class DataSourceConfig {
 
     @Bean
     @ConfigurationProperties(prefix = "spring.datasource02")
-    public DataSource dataSource_1(){
+    public DataSource dataSource02(){
         return DataSourceBuilder.create()
                 .type(DruidDataSource.class)
                 .build();
     }
 
-
+    /**
+     * @Primary 该注解表示在同一个接口有多个实现类可以注入的时候，默认选择哪一个，而不是让@autowire注解报错
+     * @Qualifier 根据名称进行注入，通常是在具有相同的多个类型的实例的一个注入（例如有多个DataSource类型的实例）
+     * @param dataSource_0
+     * @param dataSource_1
+     * @return
+     */
     @Bean
     @Primary
     public DataSource dataSource(
-            @Autowired @Qualifier("dataSource_0") DataSource dataSource_0,
-            @Autowired @Qualifier("dataSource_1") DataSource dataSource_1
+            @Autowired @Qualifier("dataSource01") DataSource dataSource01,
+            @Autowired @Qualifier("dataSource02") DataSource dataSource02
     ){
         Map<Object, Object> map = new HashMap<>();
-        map.put("datasource01", dataSource_0);
-        map.put("datasource02", dataSource_1);
+        map.put("datasource01", dataSource01);
+        map.put("datasource02", dataSource02);
 
         MultipleDataSourceToChoose multipleDataSourceToChoose = new MultipleDataSourceToChoose();
         multipleDataSourceToChoose.setTargetDataSources(map);
-        multipleDataSourceToChoose.setDefaultTargetDataSource(dataSource_0);
+        multipleDataSourceToChoose.setDefaultTargetDataSource(dataSource01);
         return multipleDataSourceToChoose;
     }
 
+
     @Bean
-    public SqlSessionFactory sqlSessionFactory(@Qualifier("dataSource_0") DataSource myTestDbDataSource,
-                                               @Qualifier("dataSource_1") DataSource myTestDb2DataSource) throws Exception{
+    public SqlSessionFactory sqlSessionFactory(@Qualifier("dataSource01") DataSource myTestDbDataSource,
+                                               @Qualifier("dataSource02") DataSource myTestDb2DataSource) throws Exception{
         SqlSessionFactoryBean fb = new SqlSessionFactoryBean();
         fb.setDataSource(this.dataSource(myTestDbDataSource, myTestDb2DataSource));
         fb.setTypeAliasesPackage(env.getProperty("mybatis.typeAliasesPackage"));
