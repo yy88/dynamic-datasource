@@ -47,8 +47,6 @@ public class DataSourceConfig {
     /**
      * @Primary 该注解表示在同一个接口有多个实现类可以注入的时候，默认选择哪一个，而不是让@autowire注解报错
      * @Qualifier 根据名称进行注入，通常是在具有相同的多个类型的实例的一个注入（例如有多个DataSource类型的实例）
-     * @param dataSource_0
-     * @param dataSource_1
      * @return
      */
     @Bean
