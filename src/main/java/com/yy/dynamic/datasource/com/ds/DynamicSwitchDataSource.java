@@ -1,4 +1,4 @@
-package com.yy.springbootmybatismapper.com.ds;
+package com.yy.dynamic.datasource.com.ds;
 
 /**
  * @author yuanyuan.jing 2019/1/24 17:12

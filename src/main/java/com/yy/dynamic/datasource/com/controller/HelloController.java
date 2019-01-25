@@ -1,22 +1,15 @@
-package com.yy.springbootmybatismapper.com.controller;
+package com.yy.dynamic.datasource.com.controller;
 
-import com.yy.springbootmybatismapper.com.dao.CountryDao;
-import com.yy.springbootmybatismapper.com.dao.UserInfoDao;
-import com.yy.springbootmybatismapper.com.entity.Country;
-import com.yy.springbootmybatismapper.com.entity.UserInfo;
+import com.yy.dynamic.datasource.com.dao.CountryDao;
+import com.yy.dynamic.datasource.com.entity.Country;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 @RestController
 public class HelloController {
     @Autowired
     private CountryDao countryDao;
-
-    @Autowired
-    private UserInfoDao userInfoDao;
 
 
     @RequestMapping("/hi")
@@ -26,9 +19,6 @@ public class HelloController {
         return country;
     }
 
-    @RequestMapping("/user/list")
-    public List<UserInfo> list(){
-        return userInfoDao.selectAll();
-    }
+
 
 }

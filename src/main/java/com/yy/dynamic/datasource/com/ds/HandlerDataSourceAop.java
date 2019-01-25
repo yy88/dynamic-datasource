@@ -1,4 +1,4 @@
-package com.yy.springbootmybatismapper.com.ds;
+package com.yy.dynamic.datasource.com.ds;
 
 /**
  * @author yuanyuan.jing 2019/1/24 17:14
@@ -28,7 +28,7 @@ import java.lang.reflect.Method;
 public class HandlerDataSourceAop {
     //@within在类上设置
     //@annotation在方法上进行设置
-    @Pointcut("@annotation(com.yy.springbootmybatismapper.com.ds.DynamicSwitchDataSource)")
+    @Pointcut("@annotation(com.yy.dynamic.datasource.com.ds.DynamicSwitchDataSource)")
     public void pointcut() {}
 
     @Before("pointcut()")

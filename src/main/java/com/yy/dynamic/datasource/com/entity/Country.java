@@ -1,4 +1,4 @@
-package com.yy.springbootmybatismapper.com.entity;
+package com.yy.dynamic.datasource.com.entity;
 
 import tk.mybatis.mapper.annotation.KeySql;
 

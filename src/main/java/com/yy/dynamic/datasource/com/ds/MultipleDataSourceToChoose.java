@@ -1,4 +1,4 @@
-package com.yy.springbootmybatismapper.com.ds;
+package com.yy.dynamic.datasource.com.ds;
 
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 
